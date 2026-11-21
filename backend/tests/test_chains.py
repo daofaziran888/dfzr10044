@@ -172,7 +172,9 @@ class TestChainSnapshotTimetravelExpire:
 class TestChainTierMigrationView:
     """测试链路9：存储分层生效→冷热迁移→消费视图发布。"""
     def test_tier_migration_full(self):
-        lake_store.register_file("test_chain9", "20261101", rows=100, bytes_=25600)
+        pf = lake_store.register_file("test_chain9", "20261101", rows=100, bytes_=25600)
+        snap = lake_store.create_snapshot("test_chain9", [pf.file_id], added_rows=100)
+        lake_store.mark_snapshot_available("test_chain9", snap.snapshot_id)
         result = run_chain(
             "chain_tier_migration_watermark",
             "test_chain9",

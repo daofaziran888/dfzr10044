@@ -553,6 +553,10 @@ def _step_publish_view_refresh(ctx: ChainContext) -> ChainContext:
         ctx.output["view_snapshot"] = latest.snapshot_id
         ctx.output["view_columns"] = ["event_time", "user_id", "action", "amount"]
         ctx.output["downstream_consumer"] = "ADHOC_QUERY"
+    else:
+        ctx.output["view_snapshot"] = None
+        ctx.output["view_columns"] = []
+        ctx.output["downstream_consumer"] = "ADHOC_QUERY"
     return ctx
 
 
