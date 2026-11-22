@@ -1,7 +1,7 @@
 """示例数据：湖表治理全生命周期真实样例数据，含脏行、重复、迟到批次。
 
 数据关联关系：
-- lake_catalog: 注册 3 张湖表（ods_user_behavior、ods_payment、ods_inventory）
+- lake_catalog: 注册 3 张湖表（ods_user_behavior、ods_payment、ods_inv_detail）
 - table_schema: 每张湖表有初始结构版本和演进版本
 - partition_plan: 每张湖表有分区方案
 - partition_evolve: ods_user_behavior 表正在演化中
@@ -29,9 +29,9 @@ SEED_ROWS: dict[str, list[dict[str, Any]]] = {
         },
         {
             "id": 3, "status": "待登记", "pending": True, "abnormal": False,
-            "表编号": "LAKE-003", "表名全称": "ods_inventory",
+            "表编号": "LAKE-003", "表名全称": "ods_inv_detail",
             "所属库域": "lake_ods", "表格式": "ICEBERG",
-            "存储路径": "/lake/ods_inventory", "负责人标识": "data_eng_03",
+            "存储路径": "/lake/ods_inv_detail", "负责人标识": "data_eng_03",
             "登记时间": "2026-09-10", "当前版本": "v0",
         },
     ],
@@ -78,7 +78,7 @@ SEED_ROWS: dict[str, list[dict[str, Any]]] = {
         },
         {
             "id": 3, "status": "草稿", "pending": True, "abnormal": False,
-            "方案编号": "PART-ODS-003", "所属湖表": "ods_inventory",
+            "方案编号": "PART-ODS-003", "所属湖表": "ods_inv_detail",
             "分区键": "event_time", "分区粒度": "HOUR",
             "预期分区数": 8760, "单分区行数": 50000,
             "冷热判定": "HOT_1d_COLD_7d_ARCHIVE", "最近评估": "2026-09-11",
@@ -193,7 +193,7 @@ SEED_ROWS: dict[str, list[dict[str, Any]]] = {
         },
         {
             "id": 3, "status": "初始化", "pending": True, "abnormal": False,
-            "水位编号": "WM-ODS-003", "所属湖表": "ods_inventory",
+            "水位编号": "WM-ODS-003", "所属湖表": "ods_inv_detail",
             "水位字段": "event_time", "已提交水位": "",
             "待提交水位": "2026-11-01T00:00:00", "落后批次": 0,
             "推进策略": "append", "最近推进": "",
@@ -288,7 +288,7 @@ SEED_ROWS: dict[str, list[dict[str, Any]]] = {
         },
         {
             "id": 3, "status": "草稿", "pending": True, "abnormal": False,
-            "策略编号": "EXP-ODS-003", "所属湖表": "ods_inventory",
+            "策略编号": "EXP-ODS-003", "所属湖表": "ods_inv_detail",
             "保留快照数": 7, "保留天数": 7,
             "受保护标签": "", "清理范围": "7天前的全部快照",
             "最近清理": "", "释放字节数": 0,
@@ -407,7 +407,7 @@ SEED_ROWS: dict[str, list[dict[str, Any]]] = {
             "id": 3, "status": "补数失败", "pending": False, "abnormal": True,
             "补数编号": "BLF-003", "所属湖表": "ods_user_behavior",
             "补数窗口": "2026-09-01~2026-09-30",
-            "依赖上游表": "ods_inventory", "重算分区数": 0,
+            "依赖上游表": "ods_inv_detail", "重算分区数": 0,
             "覆盖策略": "replace", "补数水位": "",
             "补数耗时": "500ms",
         },
@@ -429,7 +429,7 @@ SEED_ROWS: dict[str, list[dict[str, Any]]] = {
         },
         {
             "id": 3, "status": "草稿", "pending": True, "abnormal": False,
-            "分层编号": "ST-ODS-003", "所属湖表": "ods_inventory",
+            "分层编号": "ST-ODS-003", "所属湖表": "ods_inv_detail",
             "热层判定": "1天内访问", "冷层判定": "超过1天",
             "迁移窗口": "每日04:00-05:00", "压缩算法": "LZ4",
             "迁移字节数": 0, "最近迁移": "",

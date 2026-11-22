@@ -49,7 +49,7 @@ class PublishViewService(BaseModuleService):
         }
 
     def revoke_view(self, lake_table: str, consumer: str) -> dict[str, Any]:
-        """撤回视图：撤销下游消费方对视图的访问权限。"""
+        """撤回视图：撤销下游消费方对视图的访问授权。"""
         return {
             "lake_table": lake_table,
             "consumer": consumer,
